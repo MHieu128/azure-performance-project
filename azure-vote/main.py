@@ -30,21 +30,21 @@ view_manager = stats.view_manager
 config_integration.trace_integrations(['logging'])
 config_integration.trace_integrations(['requests'])
 logger = logging.getLogger(__name__) # TODO: Setup logger
-handler = AzureLogHandler(connection_string='InstrumentationKey=acefe318-c5d7-4cff-9422-cac1c85473ac')
-handler.setFormatter(logging.Formatter('%(traceId)s %(spanId)s %(message)s'))
+handler = AzureLogHandler(connection_string='InstrumentationKey=b0aaa1a9-97de-4a90-9b94-203ca6c2fdea')
+handler.setFormatter(logging.Formatter('%(message)s'))
 logger.addHandler(handler)
-logger.addHandler(AzureEventHandler(connection_string='InstrumentationKey=acefe318-c5d7-4cff-9422-cac1c85473ac'))
+logger.addHandler(AzureEventHandler(connection_string='InstrumentationKey=b0aaa1a9-97de-4a90-9b94-203ca6c2fdea'))
 logger.setLevel(logging.INFO)
 # Metrics
-exporter = metrics_exporter.new_metrics_exporter(enable_standard_metrics=True,connection_string='InstrumentationKey=acefe318-c5d7-4cff-9422-cac1c85473ac') # TODO: Setup exporter
+exporter = metrics_exporter.new_metrics_exporter(enable_standard_metrics=True,connection_string='InstrumentationKey=b0aaa1a9-97de-4a90-9b94-203ca6c2fdea') # TODO: Setup exporter
 view_manager.register_exporter(exporter)
 # Tracing
-tracer = Tracer(exporter=AzureExporter(connection_string='InstrumentationKey=acefe318-c5d7-4cff-9422-cac1c85473ac'),sampler=ProbabilitySampler(1.0),) # TODO: Setup tracer
+tracer = Tracer(exporter=AzureExporter(connection_string='InstrumentationKey=b0aaa1a9-97de-4a90-9b94-203ca6c2fdea'),sampler=ProbabilitySampler(1.0),) # TODO: Setup tracer
 
 app = Flask(__name__)
 
 # Requests
-middleware = FlaskMiddleware(app,exporter=AzureExporter(connection_string="InstrumentationKey=acefe318-c5d7-4cff-9422-cac1c85473ac"),sampler=ProbabilitySampler(rate=1.0)) # TODO: Setup flask middleware
+middleware = FlaskMiddleware(app,exporter=AzureExporter(connection_string="InstrumentationKey=b0aaa1a9-97de-4a90-9b94-203ca6c2fdea"),sampler=ProbabilitySampler(rate=1.0)) # TODO: Setup flask middleware
 
 # Load configurations from environment or config file
 app.config.from_pyfile('config_file.cfg')
